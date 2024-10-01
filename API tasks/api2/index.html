@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin: 10px 0;
+        }
+        img {
+            width: 100px;
+            height: auto;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <ul id="country-list"></ul>
+
+    <script>
+        'use strict'
+
+        let apiURL = "https://restcountries.com/v3.1/all"; 
+
+        fetch(apiURL).then(response => {
+            return response.json();
+        }).then(data => {
+            console.log(data);
+
+            const countryList = document.getElementById('country-list');
+
+            data.forEach(country => {
+                let listItem = document.createElement('li');
+                
+                let countryName = document.createElement('span');
+                countryName.textContent = country.name.common;
+
+                let flagImage = document.createElement('img');
+                flagImage.src = country.flags.png;
+
+                listItem.appendChild(countryName);
+                listItem.appendChild(flagImage);
+
+                countryList.appendChild(listItem);
+            });
+        })
+    </script>
+
+</body>
+</html>
